@@ -1,6 +1,6 @@
 {
-    "appSecret": "",
-    "pageAccessToken": "",
-    "validationToken": "",
-    "serverURL": ""
+    "appSecret": "2d2806db143a7e850a24000a888ae720",
+    "pageAccessToken": "EAASWsQJsnUYBAARAkqhtnL4613uXZCF84b475JuXJZBEyBBa59xrZBlyZCGPocmqzumVTZA16UDQOg4BsDynQDbCLtHDGt49HZB9zU65VMXcdjxnxs8U6zJBhbRDEmYwN1iM8gZAZB5S8sdZCSf1Q67UATY6RzjM7y9NkCwt4aEJIBAZDZD",
+    "validationToken": "verify_password",
+    "serverURL": "https://matts-workouts.appspot.com"
 }
