@@ -83,6 +83,7 @@ app.get('/webhook', function(req, res) {
 app.post('/webhook', function (req, res) {
   var data = req.body;
 
+  console.log('got request');
   // Make sure this is a page subscription
   if (data.object == 'page') {
     // Iterate over each entry
@@ -422,7 +423,7 @@ function sendImageMessage(recipientId) {
       }
     }
   };
-
+  console.log(messageData.message.attachment.payload);
   callSendAPI(messageData);
 }
 
