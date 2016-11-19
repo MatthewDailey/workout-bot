@@ -14,6 +14,8 @@ export SERVER_URL=$serverUrl
 
 rm $tmpFile
 
+npm start
+
 # You must run this via: . ./devStart
 # this allows the file to properly export serverUrl for test.
 
