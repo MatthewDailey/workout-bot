@@ -10,6 +10,8 @@
 /* jshint node: true, devel: true */
 'use strict';
 
+var workouts = require('./workouts');
+
 const 
   bodyParser = require('body-parser'),
   config = require('config'),
@@ -219,6 +221,10 @@ function receivedMessage(event) {
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
     switch (messageText) {
+      case 'new workout':
+        sendNewWorkout(senderID);
+        break;
+
       case 'button':
         sendButtonMessage(senderID);
         break;
@@ -290,7 +296,17 @@ function sendTextMessage(recipientId, messageText) {
     }
   };
 
-  callSendAPI(messageData);
+  return callSendAPI(messageData);
+}
+
+function sendNewWorkout(recipientId) {
+  var newWorkout = workouts.generateWorkout();
+
+  sendTextMessage(recipientId, newWorkout.core.join('\n'))
+  sendTextMessage(recipientId, newWorkout.fullBody.join('\n'));
+  sendTextMessage(recipientId, newWorkout.legs.join('\n'));
+  sendTextMessage(recipientId, newWorkout.chest.join('\n'));
+  sendTextMessage(recipientId, newWorkout.back.join('\n'));
 }
 
 /*
@@ -508,28 +524,30 @@ function sendAccountLinking(recipientId) {
  *
  */
 function callSendAPI(messageData) {
-  request({
-    uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: PAGE_ACCESS_TOKEN },
-    method: 'POST',
-    json: messageData
+  return new Promise(function (resolve, reject) {
+    request({
+      uri: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: { access_token: PAGE_ACCESS_TOKEN },
+      method: 'POST',
+      json: messageData
+    }, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var recipientid = body.recipient_id;
+        var messageid = body.message_id;
 
-  }, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var recipientId = body.recipient_id;
-      var messageId = body.message_id;
-
-      if (messageId) {
-        console.log("Successfully sent message with id %s to recipient %s", 
-          messageId, recipientId);
+        if (messageid) {
+          console.log("successfully sent message with id %s to recipient %s", messageid, recipientid);
+        } else {
+          console.log("successfully called send api for recipient %s", recipientid);
+        }
+        resolve();
       } else {
-      console.log("Successfully called Send API for recipient %s", 
-        recipientId);
+        console.log(response);
+        console.error("failed calling send api", response.statusCode, response.statusMessage, body.error);
+        reject(error);
       }
-    } else {
-      console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
-    }
-  });  
+    });
+  })
 }
 
 // Start server
