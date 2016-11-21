@@ -24,7 +24,7 @@ export default class CircuitBuilder {
 
   withNumRounds(numRounds) {
     this.numRounds = numRounds;
-    return this;
+    return this;[]
   }
 
   withNumExercises(numExercises) {

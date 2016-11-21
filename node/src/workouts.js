@@ -1,3 +1,7 @@
+import CircuitBuilder from './CircuitBuilder';
+import WorkoutState from './WorkoutState';
+import { loadWorkoutByOwner, storeWorkoutByOwner, deleteWorkoutByOwner } from './WorkoutConnector';
+
 // Pick 2, 3 rounds
 const compoundOptions = [
   'Static lunge + one arm cable row - 15 reps per arm',
@@ -67,51 +71,37 @@ const cardioOptions = [
 
 const coreExercises = require('../exercises/core.json');
 
-function pickRandomFromList(list, numToPick) {
-  const pickedIndexes = {};
-  const pickedElements = [];
+function buildFreshWorkout() {
+  const coreCircuit = new CircuitBuilder(coreExercises)
+    .withNumExercises(6)
+    .withNumRounds(2)
+    .withName('Core')
+    .build();
 
-  while (pickedElements.length < numToPick) {
-    const index = Math.floor(Math.random() * list.length);
-
-    if (!pickedIndexes[index]) {
-      pickedElements.push(list[index]);
-      pickedIndexes[index] = true;
-    }
-  }
-  return pickedElements;
+  return new WorkoutState([coreCircuit]);
 }
 
-function branch(optionOne, optionTwo) {
-  if (Math.random() > 0.5) {
-    return optionOne;
-  }
-  return optionTwo;
+export function clearWorkout(userId) {
+  return deleteWorkoutByOwner(userId);
 }
 
-function appendCardio(list) {
-  return list.concat(pickRandomFromList(cardioOptions, 1));
+export function storeWorkout(userId, workout) {
+  return storeWorkoutByOwner(userId, workout.toObject());
 }
 
-function prependRounds(title, roundCount, list) {
-  return [`${title} - ${roundCount} rounds`].concat(list);
+export function getWorkout(userId) {
+  console.log('called getWorkout')
+  return loadWorkoutByOwner(userId)
+    .then(workout => {
+      console.log('loaded workout')
+      console.log(workout)
+      if (workout) {
+        return new WorkoutState(workout.circuits, workout.position);
+      }
+
+      const freshWorkout = buildFreshWorkout();
+      return storeWorkout(userId, freshWorkout).then(() => freshWorkout);
+    });
 }
 
-function generateWorkout() {
-  return {
-    core: prependRounds('Core', 2, appendCardio(pickRandomFromList(coreOptions, 6))),
-    fullBody:
-      prependRounds('Full Body', 3,
-        appendCardio(
-          branch(
-            pickRandomFromList(compoundOptions, 2),
-            pickRandomFromList(fullBodyOptions, 1)))),
-    legs: prependRounds('Legs', 2, pickRandomFromList(lowerBodyOptions, 3)),
-    back: prependRounds('Back', 2, pickRandomFromList(backOptions, 2)),
-    chest: prependRounds('Chest', 2, pickRandomFromList(chestOptions, 2)),
-  };
-}
-
-module.exports = {
-  generateWorkout,
-};
+export default undefined;

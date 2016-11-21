@@ -37,3 +37,17 @@ export function loadWorkoutByOwner(ownerId) {
     });
   });
 }
+
+export function deleteWorkoutByOwner(ownerId) {
+  return new Promise((resolve, reject) => {
+    const workoutKey = datastoreClient.key([KIND_WORKOUT, ownerId]);
+
+    datastoreClient.delete(workoutKey, (error) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve();
+      }
+    });
+  });
+}

@@ -5,9 +5,7 @@ import express from 'express';
 import https from 'https';
 import request from 'request';
 
-import workouts from './workouts';
-
-import { loadWorkoutByOwner, storeWorkoutByOwner } from './WorkoutConnector';
+import { getWorkout, clearWorkout, storeWorkout } from './workouts';
 
 /*
  * Be sure to setup your config values before running this code. You can
@@ -144,16 +142,6 @@ function receivedPostback(event) {
   sendTextMessage(senderID, 'Postback called');
 }
 
-function sendNewWorkout(recipientId) {
-  const newWorkout = workouts.generateWorkout();
-
-  sendTextMessage(recipientId, newWorkout.core.join('\n'));
-  sendTextMessage(recipientId, newWorkout.fullBody.join('\n'));
-  sendTextMessage(recipientId, newWorkout.legs.join('\n'));
-  sendTextMessage(recipientId, newWorkout.chest.join('\n'));
-  sendTextMessage(recipientId, newWorkout.back.join('\n'));
-}
-
 /*
  * Send a button message using the Send API.
  *
@@ -196,25 +184,18 @@ function sendButtonMessage(recipientId) {
  * Send a message with Quick Reply buttons.
  *
  */
-function sendQuickReply(recipientId) {
+function sendQuickReply(recipientId, text, replyOptions = []) {
   const messageData = {
     recipient: {
       id: recipientId,
     },
     message: {
-      text: '10 Push ups',
-      quick_replies: [
-        {
-          content_type: 'text',
-          title: 'Start Timer',
-          payload: 'payload_start_timer',
-        },
-        {
-          content_type: 'text',
-          title: 'Done',
-          payload: 'payload_done',
-        },
-      ],
+      text,
+      quick_replies: [{
+        content_type: 'text',
+        title: 'start',
+        payload: 'START',
+      }],
     },
   };
 
@@ -272,6 +253,73 @@ function sendTypingOff(recipientId) {
   callSendAPI(messageData);
 }
 
+function getExerciseString(exercise) {
+  if (exercise.reps) {
+    return `${exercise.description} - ${exercise.reps} reps`;
+  }
+
+  if (exercise.durationSeconds) {
+    return `${exercise.description} - ${exercise.durationSeconds} seconds`;
+  }
+
+  return exercise.description;
+}
+
+function getExerciseOptions(exercise) {
+  const options = ['done'];
+
+  if (exercise.durationSeconds) {
+    options.push('start timer');
+  }
+
+  return options;
+}
+
+function initializeWorkout(userId) {
+  console.log('Called initialize workout');
+  clearWorkout(userId)
+    .then(() => getWorkout(userId))
+    .then(workout => {
+      console.log('received new workout', workout);
+      const circuitNames = workout.circuits.map(circuit => circuit.name);
+      sendQuickReply(userId,
+        `We've created a new workout with ${circuitNames.length} circuits (${circuitNames})`,
+        ['start']);
+    })
+    .catch(console.error);
+}
+
+function sendCurrentExercise(userId) {
+  getWorkout(userId)
+    .then(workout => {
+      const currentExercise = workout.getCurrentExercise();
+
+      sendQuickReply(userId,
+        getExerciseString(currentExercise),
+        getExerciseOptions(currentExercise));
+    })
+    .catch(console.error);
+}
+
+function markExerciseCompleteAndSendNewExercise(userId) {
+  getWorkout(userId)
+    .then((priorState) => {
+      const newState = priorState.goToNext();
+      if (!newState || newState.isCompleted()) {
+        sendQuickReply(userId, 'Nice job! You completed the workout.', ['new workout']);
+        clearWorkout(userId);
+      } else {
+        storeWorkout(userId, newState);
+        const currentExercise = newState.getCurrentExercise();
+
+        sendQuickReply(userId,
+          getExerciseString(currentExercise),
+          getExerciseOptions(currentExercise));
+      }
+    })
+    .catch(console.error);
+}
+
 /*
  * Message Event
  *
@@ -292,16 +340,9 @@ function receivedMessage(event) {
   const timeOfMessage = event.timestamp;
   const message = event.message;
 
-  loadWorkoutByOwner(senderID)
-    .then(console.log)
-    .then(() => storeWorkoutByOwner(senderID, { interesting: 'blob', aList: [{ item: 1 }] }))
-    .then(() => loadWorkoutByOwner(senderID))
-    .then(console.log)
-    .catch(console.error);
-
   console.log('Received message for user %d and page %d at %d with message:',
     senderID, recipientID, timeOfMessage);
-  console.log(JSON.stringify(event));
+  console.log(JSON.stringify(event.message));
 
   const isEcho = message.is_echo;
   const messageId = message.mid;
@@ -333,7 +374,15 @@ function receivedMessage(event) {
     // the text we received.
     switch (messageText) {
       case 'new workout':
-        sendNewWorkout(senderID);
+        initializeWorkout(senderID);
+        break;
+
+      case 'start':
+        sendCurrentExercise(senderID);
+        break;
+
+      case 'done':
+        markExerciseCompleteAndSendNewExercise(senderID);
         break;
 
       case 'button':
@@ -341,11 +390,7 @@ function receivedMessage(event) {
         break;
 
       case 'quick reply':
-        sendQuickReply(senderID);
-        break;
-
-      case 'read receipt':
-        sendReadReceipt(senderID);
+        sendQuickReply(senderID).catch(console.error);
         break;
 
       case 'typing on':
