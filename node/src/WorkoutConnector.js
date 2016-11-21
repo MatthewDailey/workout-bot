@@ -1,13 +1,13 @@
 import Datastore from '@google-cloud/datastore';
 
-const datastoreClient = Datastore({
+const datastoreClient = new Datastore({
   projectId: 'matts-workouts',
 });
 
 const KIND_WORKOUT = 'workout';
 
 
-export function storeWorkout(ownerId, workout) {
+export function storeWorkoutByOwner(ownerId, workout) {
   return new Promise((resolve, reject) => {
     const workoutKey = datastoreClient.key([KIND_WORKOUT, ownerId]);
 
@@ -24,7 +24,7 @@ export function storeWorkout(ownerId, workout) {
   });
 }
 
-export function loadWorkout(ownerId) {
+export function loadWorkoutByOwner(ownerId) {
   return new Promise((resolve, reject) => {
     const workoutKey = datastoreClient.key([KIND_WORKOUT, ownerId]);
 

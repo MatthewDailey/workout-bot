@@ -7,7 +7,7 @@ import request from 'request';
 
 import workouts from './workouts';
 
-import { loadWorkout, storeWorkout } from './WorkoutConnector';
+import { loadWorkoutByOwner, storeWorkoutByOwner } from './WorkoutConnector';
 
 /*
  * Be sure to setup your config values before running this code. You can
@@ -292,10 +292,10 @@ function receivedMessage(event) {
   const timeOfMessage = event.timestamp;
   const message = event.message;
 
-  loadWorkout(senderID)
+  loadWorkoutByOwner(senderID)
     .then(console.log)
-    .then(() => storeWorkout(senderID, { interesting: 'blob', aList: [{ item: 1 }] }))
-    .then(() => loadWorkout(senderID))
+    .then(() => storeWorkoutByOwner(senderID, { interesting: 'blob', aList: [{ item: 1 }] }))
+    .then(() => loadWorkoutByOwner(senderID))
     .then(console.log)
     .catch(console.error);
 
