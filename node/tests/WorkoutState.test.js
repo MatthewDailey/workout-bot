@@ -26,7 +26,27 @@ const testSimpleCircuit = new CircuitBuilder(
   .withNumExercises(2)
   .build();
 
-const testCircuits = [testSimpleCircuit];
+const testSecondCircuit = new CircuitBuilder(
+  [
+    {
+      description: 'hard exercise',
+      durationSeconds: null,
+      reps: 15,
+      gif: null,
+    },
+    {
+      description: 'super hard exercise',
+      durationSeconds: null,
+      reps: 15,
+      gif: null,
+    },
+  ])
+  .withNumRounds(2)
+  .withName('Core')
+  .withNumExercises(2)
+  .build();
+
+const testCircuits = [testSimpleCircuit, testSecondCircuit];
 
 describe('WorkoutState', () => {
   it('can be instantiated without args', () => {
@@ -69,6 +89,37 @@ describe('WorkoutState', () => {
     it('returns first exercise of first circuit on start', () => {
       expect(new WorkoutState(testCircuits).getCurrentExercise())
         .to.equal(testSimpleCircuit.exercises[0]);
+    });
+  });
+
+  describe('goToNext', () => {
+    it('returns undefinted if not initialized', () => {
+      expect(new WorkoutState().goToNext()).to.equal(undefined);
+    });
+
+    it('moves to next exercise in circuit', () => {
+      const initialState = new WorkoutState(testCircuits);
+      expect(initialState.goToNext().getCurrentExercise()).to.equal(testSimpleCircuit.exercises[1]);
+    });
+
+    it('moves to next round at end of circuit', () => {
+      const initialState = new WorkoutState(testCircuits, {
+        circuitIndex: 0,
+        roundIndex: 0,
+        exerciseIndex: 1,
+      });
+
+      expect(initialState.goToNext().getCurrentExercise()).to.equal(testSimpleCircuit.exercises[0]);
+    });
+
+    it('move to next circuit at end of final round of circuit', () => {
+      const initialState = new WorkoutState(testCircuits, {
+        circuitIndex: 0,
+        roundIndex: 1,
+        exerciseIndex: 1,
+      });
+
+      expect(initialState.goToNext().getCurrentExercise()).to.equal(testSecondCircuit.exercises[0]);
     });
   });
 });

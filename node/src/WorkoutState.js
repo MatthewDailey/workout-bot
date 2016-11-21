@@ -45,6 +45,28 @@ export default class WorkoutState {
    * exercise, undefined if workout is complete.
    */
   goToNext() {
+    if (this.isCompleted()) {
+      return undefined;
+    }
 
+    let circuitIndex = this.position.circuitIndex;
+    let roundIndex = this.position.roundIndex;
+    let exerciseIndex = this.position.exerciseIndex + 1;
+
+    if (exerciseIndex >= this.circuits[this.position.circuitIndex].exercises.length) {
+      roundIndex++;
+      exerciseIndex = 0;
+    }
+
+    if (roundIndex >= this.circuits[this.position.circuitIndex].numRounds) {
+      circuitIndex++;
+      roundIndex = 0;
+    }
+
+    return new WorkoutState(this.circuits, {
+      circuitIndex,
+      roundIndex,
+      exerciseIndex,
+    });
   }
 }
