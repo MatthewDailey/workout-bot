@@ -8,19 +8,18 @@
  */
 
 /* jshint node: true, devel: true */
-'use strict';
 
-var workouts = require('./workouts');
+import workouts from './workouts';
 
-const 
+const
   bodyParser = require('body-parser'),
   config = require('config'),
   crypto = require('crypto'),
   express = require('express'),
-  https = require('https'),  
+  https = require('https'),
   request = require('request');
 
-var app = express();
+const app = express();
 app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
