@@ -1,1 +1,0 @@
-var workouts = require('./workouts')

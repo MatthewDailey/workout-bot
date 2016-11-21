@@ -85,7 +85,6 @@ app.get('/webhook', function(req, res) {
 app.post('/webhook', function (req, res) {
   var data = req.body;
 
-  console.log('got request');
   // Make sure this is a page subscription
   if (data.object == 'page') {
     // Iterate over each entry
@@ -189,7 +188,7 @@ function receivedMessage(event) {
 
   console.log("Received message for user %d and page %d at %d with message:", 
     senderID, recipientID, timeOfMessage);
-  console.log(JSON.stringify(message));
+  console.log(JSON.stringify(event));
 
   var isEcho = message.is_echo;
   var messageId = message.mid;
@@ -293,7 +292,8 @@ function sendTextMessage(recipientId, messageText) {
     },
     message: {
       text: messageText,
-    }
+      metadata: 'hey',
+    },
   };
 
   return callSendAPI(messageData);
@@ -487,33 +487,6 @@ function sendTypingOff(recipientId) {
     },
     sender_action: "typing_off"
   };
-
-  callSendAPI(messageData);
-}
-
-/*
- * Send a message with the account linking call-to-action
- *
- */
-function sendAccountLinking(recipientId) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
-          text: "Welcome. Link your account.",
-          buttons:[{
-            type: "account_link",
-            url: SERVER_URL + "/authorize"
-          }]
-        }
-      }
-    }
-  };  
 
   callSendAPI(messageData);
 }
