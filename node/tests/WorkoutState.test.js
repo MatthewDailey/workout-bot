@@ -34,11 +34,32 @@ describe('WorkoutState', () => {
     expect(new WorkoutState()).to.exist();
   });
 
-  it('defaults to complete', () => {
-    expect(new WorkoutState().isCompleted()).to.be.true();
+  describe('isComplete', () => {
+    it('defaults to complete', () => {
+      expect(new WorkoutState().isCompleted()).to.be.true();
+    });
+
+    it('is not complete if circuit passed in', () => {
+      expect(new WorkoutState(testCircuits).isCompleted()).to.be.false();
+    });
   });
 
-  it('is not complete if circuit passed in', () => {
-    expect(new WorkoutState(testCircuits).isCompleted()).to.be.false();
+  describe('toObject', () => {
+    it('defaults to created empty object', () => {
+      const workoutStateObject = new WorkoutState().toObject();
+      expect(workoutStateObject.circuits.length).to.equal(0);
+      expect(workoutStateObject.position.circuitIndex).to.equal(0);
+      expect(workoutStateObject.position.roundIndex).to.equal(0);
+      expect(workoutStateObject.position.exerciseIndex).to.equal(0);
+    });
+
+    it('returns circuit and position objects', () => {
+      const testPosition = {};
+      const workoutStateObject = new WorkoutState(testCircuits, testPosition).toObject();
+
+      expect(workoutStateObject.circuits).to.equal(testCircuits);
+      expect(workoutStateObject.position).to.equal(testPosition);
+    });
   });
+
 });

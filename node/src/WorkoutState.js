@@ -29,7 +29,10 @@ export default class WorkoutState {
    * @returns Object Representation of workout state as json object { circuits, position }.
    */
   toObject() {
-
+    return {
+      circuits: this.circuits,
+      position: this.position,
+    };
   }
 
   /*
