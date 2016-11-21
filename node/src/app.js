@@ -7,6 +7,8 @@ import request from 'request';
 
 import workouts from './workouts';
 
+import { loadWorkout, storeWorkout } from './WorkoutConnector';
+
 /*
  * Be sure to setup your config values before running this code. You can
  * set them using environment variables or modifying the config file in /config.
@@ -289,6 +291,13 @@ function receivedMessage(event) {
   const recipientID = event.recipient.id;
   const timeOfMessage = event.timestamp;
   const message = event.message;
+
+  loadWorkout(senderID)
+    .then(console.log)
+    .then(() => storeWorkout(senderID, { interesting: 'blob', aList: [{ item: 1 }] }))
+    .then(() => loadWorkout(senderID))
+    .then(console.log)
+    .catch(console.error);
 
   console.log('Received message for user %d and page %d at %d with message:',
     senderID, recipientID, timeOfMessage);

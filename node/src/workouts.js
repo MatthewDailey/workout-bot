@@ -67,8 +67,6 @@ const cardioOptions = [
 
 const coreExercises = require('../exercises/core.json');
 
-function generateCircuit(exerciseList, numExercises, )
-
 function pickRandomFromList(list, numToPick) {
   const pickedIndexes = {};
   const pickedElements = [];
