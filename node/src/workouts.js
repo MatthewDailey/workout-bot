@@ -1,5 +1,5 @@
 // Pick 6, 2 rounds
-var coreOptions = [
+const coreOptions = [
   'Front plank + alternating leg lift (15 secs each leg) - 1 minute',
   'Front plank with hands extended above head - 30 seconds',
   'Side plank - 30 second',
@@ -27,7 +27,7 @@ var coreOptions = [
 ];
 
 // Pick 2, 3 rounds
-var compoundOptions = [
+const compoundOptions = [
   'Static lunge + one arm cable row - 15 reps per arm',
   'Static lunge + 2 arm cable row - 15 reps',
   'Squat + row - 10 reps',
@@ -38,13 +38,13 @@ var compoundOptions = [
 ];
 
 // Pick 1, 3 rounds. If do this, skip compound.
-var fullBodyOptions = [
+const fullBodyOptions = [
   'Barbell back squat - 12, 10, 8 reps',
   'Hex bar or barbell deadlift - 8, 6, 4 reps',
 ];
 
 // Pick 3, 2 rounds
-var lowerBodyOptions = [
+const lowerBodyOptions = [
   'trx one leg squats - 10 reps each leg',
   'trx two leg squats - 20 reps',
   'trx jump squats - 15 reps',
@@ -59,7 +59,7 @@ var lowerBodyOptions = [
 ];
 
 // Pick 2, 2 rounds.
-var backOptions = [
+const backOptions = [
   'kneeling dumbbell row  - 8 reps',
   'rear deltoid/back fly machine - 12 reps',
   'pull ups (use assisted machine if needed and available) - 8 reps',
@@ -72,7 +72,7 @@ var backOptions = [
 ];
 
 // Pick 2, 2 rounds.
-var chestOptions = [
+const chestOptions = [
   'neutral grip dumbell chest press on swiss ball - 12 reps',
   'conventional grip dumbell chest press on swiss ball- 10 reps',
   'Alternating dumbell chest press on swiss ball (either grip) - 16 reps (8 per arm, hold one arm up while pressing with the other',
@@ -84,7 +84,7 @@ var chestOptions = [
   'machine chest flys - 10 reps',
 ];
 
-var cardioOptions = [
+const cardioOptions = [
   'jump rope - 120 singles',
   'bike - seated 30 seconds, standing 30 seconds - 3 minutes',
   '3 minute 5% incline treadmill run',
@@ -94,11 +94,11 @@ var cardioOptions = [
 ];
 
 function pickRandomFromList(list, numToPick) {
-  var pickedIndexes = {};
-  var pickedElements = [];
+  const pickedIndexes = {};
+  const pickedElements = [];
 
   while (pickedElements.length < numToPick) {
-    var index = Math.floor(Math.random() * list.length);
+    const index = Math.floor(Math.random() * list.length);
 
     if (!pickedIndexes[index]) {
       pickedElements.push(list[index]);
@@ -120,7 +120,7 @@ function appendCardio(list) {
 }
 
 function prependRounds(title, roundCount, list) {
-  return [ title + ' - ' + roundCount + ' rounds' ].concat(list);
+  return [`${title} - ${roundCount} rounds`].concat(list);
 }
 
 function generateWorkout() {
@@ -139,5 +139,5 @@ function generateWorkout() {
 }
 
 module.exports = {
-  generateWorkout: generateWorkout
+  generateWorkout,
 };
