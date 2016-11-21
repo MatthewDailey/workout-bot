@@ -1,31 +1,3 @@
-// Pick 6, 2 rounds
-const coreOptions = [
-  'Front plank + alternating leg lift (15 secs each leg) - 1 minute',
-  'Front plank with hands extended above head - 30 seconds',
-  'Side plank - 30 second',
-  'Side plank 15 seconds + 15 lateral hip raises',
-  'V-ups - 30 reps',
-  'Flutter kicks (on your back, alternating single leg lifts) - 100 reps',
-  'Oblique cable twist (standing cable twist) - 15 reps each side',
-  'Mountain climbers (on the ground) - 50 reps',
-  'Burpees - 12 reps',
-  'Jack-knifes (swiss ball leg lift to hands) - 20 reps',
-  'Russian twist - 40 reps',
-  'Reverse v-ups/pikes with feet on swiss ball- 10 reps',
-  'Static leg lift - 40 seconds',
-  'Open & close your legs while laying on your back - 30 reps',
-  'Chair pose on bosu ball',
-  'Shifts on sliders - 10 reps',
-  'trx mountain climbers - 60 reps',
-  'trx reverse v-ups/pikes - 12 reps',
-  'trx front plank - 40 seconds',
-  'trx side plank - 20 seconds',
-  'kettlebell swings - 25 reps',
-  'slider vup push up - 12 reps',
-  'low angle oblique pullers',
-  'bogo board slider knee ins'
-];
-
 // Pick 2, 3 rounds
 const compoundOptions = [
   'Static lunge + one arm cable row - 15 reps per arm',
@@ -92,6 +64,10 @@ const cardioOptions = [
   '3 minutes high intensity elliptical machine - 80% effort',
   '1/3 mile run',
 ];
+
+const coreExercises = require('../exercises/core.json');
+
+function generateCircuit(exerciseList, numExercises, )
 
 function pickRandomFromList(list, numToPick) {
   const pickedIndexes = {};

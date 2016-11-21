@@ -1,0 +1,146 @@
+[
+  {
+    "description" : "Front plank + alternating leg lift (15 secs and 2 reps each leg)",
+    "durationSeconds" : 60,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "Front plank with hands extended above head",
+    "durationSeconds" : 30,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "Side plank",
+    "durationSeconds" : 30,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "Side plank 15 seconds + 15 lateral hip raises",
+    "durationSeconds" : 15,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "V-ups",
+    "durationSeconds" : null,
+    "reps" : 30,
+    "gif" : null
+  },
+  {
+    "description" : "Flutter kicks (on your back, alternating single leg lifts)",
+    "durationSeconds" : null,
+    "reps" : 100,
+    "gif" : null
+  },
+  {
+    "description" : "Oblique cable twist (standing cable twist)",
+    "durationSeconds" : null,
+    "reps" : 15,
+    "gif" : null
+  },
+  {
+    "description" : "Mountain climbers (on the ground)",
+    "durationSeconds" : null,
+    "reps" : 50,
+    "gif" : null
+  },
+  {
+    "description" : "Burpees",
+    "durationSeconds" : null,
+    "reps" : 12,
+    "gif" : null
+  },
+  {
+    "description" : "Jack-knifes (swiss ball leg lift to hands)",
+    "durationSeconds" : null,
+    "reps" : 20,
+    "gif" : null
+  },
+  {
+    "description" : "Russian twist",
+    "durationSeconds" : null,
+    "reps" : 40,
+    "gif" : null
+  },
+  {
+    "description" : "Reverse v-ups/pikes with feet on swiss ball",
+    "durationSeconds" : null,
+    "reps" : 10,
+    "gif" : null
+  },
+  {
+    "description" : "Static leg lift",
+    "durationSeconds" : 40,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "Open & close your legs while laying on your back",
+    "durationSeconds" : null,
+    "reps" : 30,
+    "gif" : null
+  },
+  {
+    "description" : "Chair pose on bosu ball",
+    "durationSeconds" : 60,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "Shifts on sliders",
+    "durationSeconds" : null,
+    "reps" : 10,
+    "gif" : null
+  },
+  {
+    "description" : "trx mountain climbers",
+    "durationSeconds" : null,
+    "reps" : 60,
+    "gif" : null
+  },
+  {
+    "description" : "trx reverse v-ups/pikes",
+    "durationSeconds" : null,
+    "reps" : 12,
+    "gif" : null
+  },
+  {
+    "description" : "trx front plank",
+    "durationSeconds" : 40,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "trx side plank",
+    "durationSeconds" : null,
+    "reps" : 25,
+    "gif" : null
+  },
+  {
+    "description" : "kettlebell swings",
+    "durationSeconds" : null,
+    "reps" : 25,
+    "gif" : null
+  },
+  {
+    "description" : "slider vup push up",
+    "durationSeconds" : null,
+    "reps" : 12,
+    "gif" : null
+  },
+  {
+    "description" : "low angle oblique cable twist",
+    "durationSeconds" : null,
+    "reps" : 15,
+    "gif" : null
+  },
+  {
+    "description" : "bogo board slider knee ins",
+    "durationSeconds" : null,
+    "reps" : 15,
+    "gif" : null
+  }
+]
