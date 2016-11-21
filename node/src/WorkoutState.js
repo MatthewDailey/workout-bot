@@ -15,7 +15,12 @@ export default class WorkoutState {
    * @returns Object The current exercise, undefined if no such exercise.
    */
   getCurrentExercise() {
+    if (this.isCompleted()) {
+      return undefined;
+    }
 
+    return this.circuits[this.position.circuitIndex]
+      .exercises[this.position.exerciseIndex];
   }
 
   /*

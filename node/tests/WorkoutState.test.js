@@ -26,8 +26,7 @@ const testSimpleCircuit = new CircuitBuilder(
   .withNumExercises(2)
   .build();
 
-const testCircuits = [ testSimpleCircuit ];
-
+const testCircuits = [testSimpleCircuit];
 
 describe('WorkoutState', () => {
   it('can be instantiated without args', () => {
@@ -62,4 +61,14 @@ describe('WorkoutState', () => {
     });
   });
 
+  describe('getCurrentExercise', () => {
+    it('returns undefined not initialized', () => {
+      expect(new WorkoutState().getCurrentExercise()).to.equal(undefined);
+    });
+
+    it('returns first exercise of first circuit on start', () => {
+      expect(new WorkoutState(testCircuits).getCurrentExercise())
+        .to.equal(testSimpleCircuit.exercises[0]);
+    });
+  });
 });
