@@ -354,7 +354,7 @@ function receivedMessage(event) {
   const metadata = message.metadata;
 
   // You may get a text or attachment but not both
-  const messageText = message.text;
+  const messageText = message.text.toLowerCase();
   const messageAttachments = message.attachments;
 
   if (isEcho) {
