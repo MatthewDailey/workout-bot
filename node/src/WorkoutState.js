@@ -23,6 +23,14 @@ export default class WorkoutState {
       .exercises[this.position.exerciseIndex];
   }
 
+  getCurrentCircuit() {
+    if (this.isCompleted()) {
+      return undefined;
+    }
+
+    return this.circuits[this.position.circuitIndex];
+  }
+
   /*
    * @returns Boolean True if workout is completed. False otherwise.
    */

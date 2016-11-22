@@ -78,7 +78,13 @@ function buildFreshWorkout() {
     .withName('Core')
     .build();
 
-  return new WorkoutState([coreCircuit]);
+  const coreCircuit2 = new CircuitBuilder(coreExercises)
+    .withNumExercises(3)
+    .withNumRounds(3)
+    .withName('Mega-Core')
+    .build();
+
+  return new WorkoutState([coreCircuit, coreCircuit2]);
 }
 
 export function clearWorkout(userId) {
@@ -90,11 +96,8 @@ export function storeWorkout(userId, workout) {
 }
 
 export function getWorkout(userId) {
-  console.log('called getWorkout')
   return loadWorkoutByOwner(userId)
     .then(workout => {
-      console.log('loaded workout')
-      console.log(workout)
       if (workout) {
         return new WorkoutState(workout.circuits, workout.position);
       }

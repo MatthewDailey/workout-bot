@@ -261,18 +261,31 @@ function getExerciseOptions(exercise) {
   return options;
 }
 
+function sendStartingCircuit(userId, workout) {
+  const currentCircuit = workout.getCurrentCircuit();
+
+  sendQuickReply(
+    userId,
+    `The next circuit is ${currentCircuit.name}. It has ${currentCircuit.numRounds} rounds of`
+    + ` ${currentCircuit.exercises.length} exercises.`,
+    ['start circuit']);
+}
+
 function initializeWorkout(userId) {
-  console.log('Called initialize workout');
   clearWorkout(userId)
     .then(() => getWorkout(userId))
     .then(workout => {
-      console.log('received new workout', workout);
       const circuitNames = workout.circuits.map(circuit => circuit.name);
       sendQuickReply(userId,
         `We've created a new workout with ${circuitNames.length} circuits (${circuitNames})`,
         ['start']);
     })
     .catch(console.error);
+}
+
+function sendFirstCircuit(userId) {
+  getWorkout(userId)
+    .then(workout => sendStartingCircuit(userId, workout));
 }
 
 function sendCurrentExercise(userId) {
@@ -296,11 +309,16 @@ function markExerciseCompleteAndSendNewExercise(userId) {
         clearWorkout(userId);
       } else {
         storeWorkout(userId, newState);
-        const currentExercise = newState.getCurrentExercise();
 
-        sendQuickReply(userId,
-          getExerciseString(currentExercise),
-          getExerciseOptions(currentExercise));
+        if (newState.position.exerciseIndex === 0 && newState.position.roundIndex === 0) {
+          sendStartingCircuit(userId, newState);
+        } else {
+          const currentExercise = newState.getCurrentExercise();
+
+          sendQuickReply(userId,
+            getExerciseString(currentExercise),
+            getExerciseOptions(currentExercise));
+        }
       }
     })
     .catch(console.error);
@@ -356,6 +374,10 @@ function receivedMessage(event) {
         break;
 
       case 'start':
+        sendFirstCircuit(senderID);
+        break;
+
+      case 'start circuit':
         sendCurrentExercise(senderID);
         break;
 
