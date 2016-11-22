@@ -1,0 +1,38 @@
+[
+  {
+    "description" : "Static lunge + one arm cable row, each arm",
+    "durationSeconds" : null,
+    "reps" : 15,
+    "gif" : null
+  },
+  {
+    "description" : "Squat + row",
+    "durationSeconds" : null,
+    "reps" : 10,
+    "gif" : null
+  },
+  {
+    "description" : "Walking lunge + neutral grip dumbbell curl + neutral grip shoulder press",
+    "durationSeconds" : null,
+    "reps" : 20,
+    "gif" : null
+  },
+  {
+    "description" : "Wall sit + lateral dumbbell shoulder raise + 30 sec wall sit",
+    "durationSeconds" : 30,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "Kettlebell deadlift",
+    "durationSeconds" : null,
+    "reps" : 15,
+    "gif" : null
+  },
+  {
+    "description" : "Thrusters (half squat + neutral grip dumbbell press)",
+    "durationSeconds" : null,
+    "reps" : 20,
+    "gif" : null
+  }
+]

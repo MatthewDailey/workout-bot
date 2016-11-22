@@ -70,6 +70,7 @@ const cardioOptions = [
 ];
 
 const coreExercises = require('../exercises/core.json');
+const compoundExercises = require('../exercises/compound.json');
 
 function buildFreshWorkout() {
   const coreCircuit = new CircuitBuilder(coreExercises)
@@ -78,13 +79,13 @@ function buildFreshWorkout() {
     .withName('Core')
     .build();
 
-  const coreCircuit2 = new CircuitBuilder(coreExercises)
-    .withNumExercises(3)
+  const compoundCircuit = new CircuitBuilder(compoundExercises)
+    .withNumExercises(2)
     .withNumRounds(3)
-    .withName('Mega-Core')
+    .withName('Compound')
     .build();
 
-  return new WorkoutState([coreCircuit, coreCircuit2]);
+  return new WorkoutState([coreCircuit, compoundCircuit]);
 }
 
 export function clearWorkout(userId) {
