@@ -185,35 +185,21 @@ function sendButtonMessage(recipientId) {
  *
  */
 function sendQuickReply(recipientId, text, replyOptions = []) {
+  const quickReplies = [];
+  replyOptions.forEach(option => quickReplies.push({
+    content_type: 'text',
+    title: option,
+    payload: option,
+  }));
+
   const messageData = {
     recipient: {
       id: recipientId,
     },
     message: {
       text,
-      quick_replies: [{
-        content_type: 'text',
-        title: 'start',
-        payload: 'START',
-      }],
+      quick_replies: quickReplies,
     },
-  };
-
-  callSendAPI(messageData);
-}
-
-/*
- * Send a read receipt to indicate the message has been read
- *
- */
-function sendReadReceipt(recipientId) {
-  console.log('Sending a read receipt to mark message as seen');
-
-  const messageData = {
-    recipient: {
-      id: recipientId,
-    },
-    sender_action: 'mark_seen',
   };
 
   callSendAPI(messageData);
@@ -352,19 +338,11 @@ function receivedMessage(event) {
   // You may get a text or attachment but not both
   const messageText = message.text;
   const messageAttachments = message.attachments;
-  const quickReply = message.quick_reply;
 
   if (isEcho) {
     // Just logging message echoes to console
     console.log('Received echo for message %s and app %d with metadata %s',
       messageId, appId, metadata);
-    return;
-  } else if (quickReply) {
-    const quickReplyPayload = quickReply.payload;
-    console.log('Quick reply for message %s with payload %s',
-      messageId, quickReplyPayload);
-
-    sendTextMessage(senderID, 'Quick reply tapped');
     return;
   }
 
