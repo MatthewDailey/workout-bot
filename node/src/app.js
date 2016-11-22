@@ -227,7 +227,7 @@ function sendStartingCircuit(userId, workout) {
 
   sendQuickReply(
     userId,
-    `The next circuit is ${currentCircuit.name}. It has ${currentCircuit.numRounds} rounds of`
+    `This circuit is ${currentCircuit.name}. It has ${currentCircuit.numRounds} rounds of`
     + ` ${currentCircuit.exercises.length} exercises.`,
     ['start circuit']);
 }
