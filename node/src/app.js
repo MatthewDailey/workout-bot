@@ -277,7 +277,7 @@ function initializeWorkout(userId) {
     .then(workout => {
       const circuitNames = workout.circuits.map(circuit => circuit.name);
       sendQuickReply(userId,
-        `We've created a new workout with ${circuitNames.length} circuits (${circuitNames})`,
+        `I've created a new workout with ${circuitNames.length} circuits (${circuitNames})`,
         ['start']);
     })
     .catch(console.error);
@@ -322,6 +322,27 @@ function markExerciseCompleteAndSendNewExercise(userId) {
       }
     })
     .catch(console.error);
+}
+
+function sendTimer(userId) {
+  getWorkout(userId)
+    .then(workout => {
+      const currentExercise = workout.getCurrentExercise();
+      if (currentExercise.durationSeconds) {
+        const notifyTimerComplete = () => {
+          sendTypingOff(userId);
+          sendQuickReply(userId, 'Timer complete!', getExerciseOptions(currentExercise));
+        };
+
+        sendTextMessage(userId, `${currentExercise.durationSeconds} second timer started.`)
+          .then(() => sendTypingOn(userId))
+          .then(() => setTimeout(notifyTimerComplete, currentExercise.durationSeconds * 1000));
+      } else {
+        sendQuickReply(userId,
+          'Current exercise has no timer.',
+          getExerciseOptions(currentExercise));
+      }
+    });
 }
 
 /*
@@ -385,12 +406,12 @@ function receivedMessage(event) {
         markExerciseCompleteAndSendNewExercise(senderID);
         break;
 
-      case 'button':
-        sendButtonMessage(senderID);
+      case 'start timer':
+        sendTimer(senderID);
         break;
 
-      case 'quick reply':
-        sendQuickReply(senderID).catch(console.error);
+      case 'button':
+        sendButtonMessage(senderID);
         break;
 
       case 'typing on':
