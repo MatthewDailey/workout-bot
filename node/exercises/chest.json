@@ -1,0 +1,56 @@
+[
+  {
+    "description" : "neutral grip dumbell chest press on swiss ball",
+    "durationSeconds" : null,
+    "reps" : 12,
+    "gif" : null
+  },
+  {
+    "description" : "conventional grip dumbell chest press on swiss ball",
+    "durationSeconds" : null,
+    "reps" : 10,
+    "gif" : null
+  },
+  {
+    "description" : "Alternating dumbell chest press on swiss ball (either grip)",
+    "durationSeconds" : null,
+    "reps" : 16,
+    "gif" : null
+  },
+  {
+    "description" : "dumbell chest fly on swiss ball",
+    "durationSeconds" : null,
+    "reps" : 10,
+    "gif" : null
+  },
+  {
+    "description" : "barbell bench press",
+    "durationSeconds" : null,
+    "reps" : 8,
+    "gif" : null
+  },
+  {
+    "description" : "push ups",
+    "durationSeconds" : null,
+    "reps" : 15,
+    "gif" : null
+  },
+  {
+    "description" : "tricep isolation push ups",
+    "durationSeconds" : null,
+    "reps" : 20,
+    "gif" : null
+  },
+  {
+    "description" : "push ups with feet elevated",
+    "durationSeconds" : null,
+    "reps" : 15,
+    "gif" : null
+  },
+  {
+    "description" : "machine chest flys",
+    "durationSeconds" : null,
+    "reps" : 8,
+    "gif" : null
+  }
+]

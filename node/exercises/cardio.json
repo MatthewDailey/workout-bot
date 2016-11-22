@@ -1,0 +1,38 @@
+[
+  {
+    "description" : "jump rope - 120 singles",
+    "durationSeconds" : null,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "bike - seated 30 seconds, standing 30 seconds - 3 minutes",
+    "durationSeconds" : 30,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "3 minute 5% incline treadmill run",
+    "durationSeconds" : 180,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "burpees",
+    "durationSeconds" : null,
+    "reps" : 15,
+    "gif" : null
+  },
+  {
+    "description" : "3 minutes high intensity elliptical machine - 80% effort",
+    "durationSeconds" : 180,
+    "reps" : null,
+    "gif" : null
+  },
+  {
+    "description" : "1/3 mile run",
+    "durationSeconds" : null,
+    "reps" : null,
+    "gif" : null
+  }
+]

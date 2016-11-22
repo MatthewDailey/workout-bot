@@ -1,0 +1,56 @@
+[
+  {
+    "description" : "kneeling dumbbell row",
+    "durationSeconds" : null,
+    "reps" : 8,
+    "gif" : null
+  },
+  {
+    "description" : "rear deltoid/back fly machine",
+    "durationSeconds" : null,
+    "reps" : 12,
+    "gif" : null
+  },
+  {
+    "description" : "pull ups",
+    "durationSeconds" : null,
+    "reps" : 8,
+    "gif" : null
+  },
+  {
+    "description" : "chin ups",
+    "durationSeconds" : null,
+    "reps" : 8,
+    "gif" : null
+  },
+  {
+    "description" : "lat pull down machine",
+    "durationSeconds" : null,
+    "reps" : 10,
+    "gif" : null
+  },
+  {
+    "description" : "trx rows",
+    "durationSeconds" : null,
+    "reps" : 15,
+    "gif" : null
+  },
+  {
+    "description" : "standing barbell high pull",
+    "durationSeconds" : null,
+    "reps" : 8,
+    "gif" : null
+  },
+  {
+    "description" : "static squat + 2 arm row",
+    "durationSeconds" : null,
+    "reps" : 20,
+    "gif" : null
+  },
+  {
+    "description" : "seated machine rows",
+    "durationSeconds" : null,
+    "reps" : 12,
+    "gif" : null
+  }
+]
