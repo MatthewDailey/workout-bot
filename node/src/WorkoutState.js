@@ -28,7 +28,7 @@ export default class WorkoutState {
       return undefined;
     }
 
-    return this.circuits[this.position.circuitIndex];
+    return this.circuits[this.position.circuitIndex]
   }
 
   /*

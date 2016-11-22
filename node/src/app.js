@@ -345,6 +345,11 @@ function sendTimer(userId) {
     });
 }
 
+function sendUnrecognizedCommand(userId) {
+  sendQuickReply(userId, 'Didn\'t recognize that command. Try \'new workout\' to start' +
+    ' a new workout.', ['new workout']);
+}
+
 /*
  * Message Event
  *
@@ -369,27 +374,16 @@ function receivedMessage(event) {
     senderID, recipientID, timeOfMessage);
   console.log(JSON.stringify(event.message));
 
-  const isEcho = message.is_echo;
-  const messageId = message.mid;
-  const appId = message.app_id;
-  const metadata = message.metadata;
-
   // You may get a text or attachment but not both
-  const messageText = message.text.toLowerCase();
-  const messageAttachments = message.attachments;
-
-  if (isEcho) {
-    // Just logging message echoes to console
-    console.log('Received echo for message %s and app %d with metadata %s',
-      messageId, appId, metadata);
-    return;
-  }
+  const messageText = message.text;
 
   if (messageText) {
+    const normalizedMessageText = messageText.toLowerCase();
+
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    switch (messageText) {
+    switch (normalizedMessageText) {
       case 'new workout':
         initializeWorkout(senderID);
         break;
@@ -410,23 +404,11 @@ function receivedMessage(event) {
         sendTimer(senderID);
         break;
 
-      case 'button':
-        sendButtonMessage(senderID);
-        break;
-
-      case 'typing on':
-        sendTypingOn(senderID);
-        break;
-
-      case 'typing off':
-        sendTypingOff(senderID);
-        break;
-
       default:
-        sendTextMessage(senderID, messageText);
+        sendUnrecognizedCommand(senderID);
     }
-  } else if (messageAttachments) {
-    sendTextMessage(senderID, 'Message with attachment received');
+  } else {
+    sendUnrecognizedCommand(senderID);
   }
 }
 
